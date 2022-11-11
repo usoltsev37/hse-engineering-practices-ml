@@ -1,0 +1,5 @@
+*.DS_Store
+
+gender-classifier-cnn/.idea/
+gender-classifier-cnn/LibriTTS/dev-clean
+gender-classifier-cnn/LibriTTS/test-clean
