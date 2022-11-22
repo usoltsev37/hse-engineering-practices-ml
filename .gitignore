@@ -3,3 +3,15 @@
 gender-classifier-cnn/.idea/
 gender-classifier-cnn/LibriTTS/dev-clean
 gender-classifier-cnn/LibriTTS/test-clean
+
+gender-classifier-cnn/model/__pycache__
+gender-classifier-cnn/preprocessing/__pycache__
+
+
+gender-classifier-cnn/build
+gender-classifier-cnn/dist
+gender-classifier-cnn/env
+gender-classifier-cnn/gender_classifier_cnn_usoltsev37.egg-info
+
+gender-classifier-cnn/.idea/*
+.idea/*
