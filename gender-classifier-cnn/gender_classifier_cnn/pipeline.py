@@ -1,3 +1,4 @@
+"""Pipline module."""
 import os
 
 import torch
@@ -6,8 +7,11 @@ from preprocessing.my_dataloader import DataLoader
 
 
 class Pipeline:
+    """Pipeline Model."""
+
     @staticmethod
     def start(num_epochs, lr):
+        """Start method."""
         dataloader = DataLoader(batch_size=16, shuffle=True)
         model = Model()
         model.train(

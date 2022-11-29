@@ -1,3 +1,4 @@
+"""TaskDataset module."""
 import random
 
 import torch
@@ -9,7 +10,10 @@ from torch.utils.data import Dataset
 # Dataset for classification
 #
 class TaskDataset(Dataset):
+    """TaskDataset Model."""
+
     def __init__(self, df, data_path: str):
+        """__init__ method."""
         self.df = df
         self.data_path = data_path
         self.max_seconds = 5
@@ -20,18 +24,11 @@ class TaskDataset(Dataset):
     # @return int
     #
     def __len__(self):
+        """__len__ method."""
         return len(self.df)
 
-    #
-    # Get item from dataset by index
-    #
-    # @params
-    #   idx - index of item in dataset
-    # @return Tuple[spec, gender]
-    #   spec - transforms.MelSpectrogram (shape=[1, 64, time_series])
-    #   gender - target (0 or 1)
-    #
     def __getitem__(self, idx):
+        """__getitem__ method."""
         audio_file_path = self.data_path + self.df.loc[idx, "PATH_TO_FILE"]
         audio = torchaudio.load(audio_file_path)
         gender = self.df.loc[idx, "GENDER"]
@@ -51,6 +48,7 @@ class TaskDataset(Dataset):
     # @return transforms.MelSpectrogram
     #
     def crop_signal(self, audio: tuple, max_seconds: int):
+        """crop_signal method."""
         sig, sr = audio
         max_width = sr * max_seconds
         sig_height, sig_width = sig.shape
@@ -82,6 +80,7 @@ class TaskDataset(Dataset):
     # @return transforms.MelSpectrogram
     #
     def create_db_spectrogram(self, aud, n_mels=64, n_fft=1024, hop_len=None):
+        """create_db_spectrogram method."""
         sig, sr = aud
         spec = torchaudio.transforms.MelSpectrogram(
             sr, n_fft=n_fft, hop_length=hop_len, n_mels=n_mels

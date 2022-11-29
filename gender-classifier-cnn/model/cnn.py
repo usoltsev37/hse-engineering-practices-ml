@@ -1,11 +1,12 @@
+"""CNNClassifier module."""
 from torch import nn
 
 
-#
-# Classification Model
-#
 class CNNClassifier(nn.Module):
+    """Classification Model."""
+
     def __init__(self):
+        """__init__ method."""
         super().__init__()
         conv_layers = []
         kernel_size_conv = (5, 5)
@@ -98,10 +99,8 @@ class CNNClassifier(nn.Module):
         # Softmax Layer
         self.sm = nn.Softmax(dim=1)
 
-    #
-    # Forward pass
-    #
     def forward(self, x):
+        """Forward pass."""
         # Convs Layers
         x = self.convs(x)
 

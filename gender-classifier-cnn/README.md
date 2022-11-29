@@ -30,8 +30,8 @@ pip install -i https://test.pypi.org/simple/ gender-classifier-cnn-usoltsev37==0
 ### Формтер, линтер и плагины
 
 Я выбрал ```black```, ```isort``` и плагины для ```flake8```:
-flake8-spellcheck
-flake8-comprehensions 
-flake8-docstrings
-flake8-eradicate
-flake8-builtins
+```flake8-spellcheck```
+```flake8-comprehensions```
+```flake8-docstrings```
+```flake8-eradicate```
+```flake8-builtins```

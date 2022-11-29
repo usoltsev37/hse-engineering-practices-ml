@@ -1,3 +1,4 @@
+"""DataLoader module."""
 import os
 
 import pandas as pd
@@ -6,7 +7,10 @@ from preprocessing.task_dataset import TaskDataset
 
 
 class DataLoader:
+    """Classification Model."""
+
     def __init__(self, batch_size, shuffle):
+        """__init__ method."""
         self.data_path = os.getcwd()
 
         df_train = pd.read_csv(
