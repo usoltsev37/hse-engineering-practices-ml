@@ -32,9 +32,9 @@ class TaskDataset(Dataset):
     #   gender - target (0 or 1)
     #
     def __getitem__(self, idx):
-        audio_file_path = self.data_path + self.df.loc[idx, 'PATH_TO_FILE']
+        audio_file_path = self.data_path + self.df.loc[idx, "PATH_TO_FILE"]
         audio = torchaudio.load(audio_file_path)
-        gender = self.df.loc[idx, 'GENDER']
+        gender = self.df.loc[idx, "GENDER"]
 
         # Preprocessing
         dur_aud = self.crop_signal(audio, self.max_seconds)
@@ -60,9 +60,14 @@ class TaskDataset(Dataset):
         elif sig_width < max_width:
             pad_start_width = random.randint(0, max_width - sig_width)
             pad_end_width = max_width - sig_width - pad_start_width
-            sig = torch.cat((torch.zeros((sig_height, pad_start_width)),
-                             sig,
-                             torch.zeros((sig_height, pad_end_width))), 1)
+            sig = torch.cat(
+                (
+                    torch.zeros((sig_height, pad_start_width)),
+                    sig,
+                    torch.zeros((sig_height, pad_end_width)),
+                ),
+                1,
+            )
 
         return sig, sr
 
@@ -78,6 +83,8 @@ class TaskDataset(Dataset):
     #
     def create_db_spectrogram(self, aud, n_mels=64, n_fft=1024, hop_len=None):
         sig, sr = aud
-        spec = torchaudio.transforms.MelSpectrogram(sr, n_fft=n_fft, hop_length=hop_len, n_mels=n_mels)(sig)
+        spec = torchaudio.transforms.MelSpectrogram(
+            sr, n_fft=n_fft, hop_length=hop_len, n_mels=n_mels
+        )(sig)
         spec = torchaudio.transforms.AmplitudeToDB(top_db=120)(spec)
         return spec

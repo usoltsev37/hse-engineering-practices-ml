@@ -1,14 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
+from model.cnn import CNNClassifier
 from torch import nn
 from tqdm import tqdm
 
-from model.cnn import CNNClassifier
 
-
-class Model():
-
+class Model:
     def __init__(self):
         self.model = CNNClassifier()
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -22,10 +20,13 @@ class Model():
         # Loss Function, Optimizer and Scheduler
         CELoss = nn.CrossEntropyLoss()
         optimizer = torch.optim.Adam(self.model.parameters(), lr=lr)
-        scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr,
-                                                        steps_per_epoch=int(len(train_dl)),
-                                                        epochs=num_epochs,
-                                                        anneal_strategy='linear')
+        scheduler = torch.optim.lr_scheduler.OneCycleLR(
+            optimizer,
+            max_lr=lr,
+            steps_per_epoch=int(len(train_dl)),
+            epochs=num_epochs,
+            anneal_strategy="linear",
+        )
         train_loses = []
         val_loses = []
         train_acc = []
@@ -33,21 +34,21 @@ class Model():
 
         def plot_learning():
             plt.figure(figsize=(12, 6))
-            plt.title('Loss')
-            plt.plot(range(len(train_loses)), train_loses, label='train')
-            plt.plot(range(len(val_loses)), val_loses, label='val')
-            plt.xlabel('Epoch')
-            plt.ylabel('Loss')
+            plt.title("Loss")
+            plt.plot(range(len(train_loses)), train_loses, label="train")
+            plt.plot(range(len(val_loses)), val_loses, label="val")
+            plt.xlabel("Epoch")
+            plt.ylabel("Loss")
             plt.legend()
             plt.tight_layout()
             plt.show()
 
             plt.figure(figsize=(12, 6))
-            plt.title('Accuracy')
-            plt.plot(range(len(train_acc)), train_acc, label='train')
-            plt.plot(range(len(val_acc)), val_acc, label='val')
-            plt.xlabel('Epoch')
-            plt.ylabel('Acc')
+            plt.title("Accuracy")
+            plt.plot(range(len(train_acc)), train_acc, label="train")
+            plt.plot(range(len(val_acc)), val_acc, label="val")
+            plt.xlabel("Epoch")
+            plt.ylabel("Acc")
             plt.legend()
             plt.tight_layout()
             plt.show()
@@ -89,17 +90,28 @@ class Model():
             accuracy = right_predictions / all_predictions
             l_loses.append(curr_loss)
             l_acc.append(accuracy)
-            return f'{log_mode}: Epoch: {epoch}, Loss: {curr_loss:.2f}, Accuracy: {accuracy:.2f}'
+            return f"{log_mode}: Epoch: {epoch}, Loss: {curr_loss:.2f}, Accuracy: {accuracy:.2f}"
 
         for epoch in tqdm(range(num_epochs)):
-            log_train = run_epoch(is_validate=False, dl=train_dl, l_loses=train_loses, l_acc=train_acc,
-                                  log_mode='TRAIN')
+            log_train = run_epoch(
+                is_validate=False,
+                dl=train_dl,
+                l_loses=train_loses,
+                l_acc=train_acc,
+                log_mode="TRAIN",
+            )
             with torch.no_grad():
-                log_val = run_epoch(is_validate=True, dl=val_dl, l_loses=val_loses, l_acc=val_acc, log_mode='VAL')
-            print('\t' + log_train)
+                log_val = run_epoch(
+                    is_validate=True,
+                    dl=val_dl,
+                    l_loses=val_loses,
+                    l_acc=val_acc,
+                    log_mode="VAL",
+                )
+            print("\t" + log_train)
             print(log_val)
 
-        print('Finished Training')
+        print("Finished Training")
         self.is_fitted = True
         plot_learning()
 
@@ -125,9 +137,15 @@ class Model():
                 outputs = self.model(inputs)
                 _, prediction = torch.max(outputs, 1)
 
-                true_positive += (np.logical_and(labels == True, prediction == True)).sum().item()
-                false_positive += (np.logical_and(labels == False, prediction == True)).sum().item()
-                false_negative += (np.logical_and(labels == True, prediction == False)).sum().item()
+                true_positive += (
+                    (np.logical_and(labels == True, prediction == True)).sum().item()
+                )
+                false_positive += (
+                    (np.logical_and(labels == False, prediction == True)).sum().item()
+                )
+                false_negative += (
+                    (np.logical_and(labels == True, prediction == False)).sum().item()
+                )
                 right_predictions += (prediction == labels).sum().item()
                 all_predictions += prediction.shape[0]
 
@@ -135,8 +153,8 @@ class Model():
         recall = true_positive / (true_positive + false_negative)
         accuracy = right_predictions / all_predictions
 
-        print(f'Accuracy: {accuracy:.2f}, Total items: {all_predictions}')
-        print(f'Precision: {precision}, Recall: {recall}')
+        print(f"Accuracy: {accuracy:.2f}, Total items: {all_predictions}")
+        print(f"Precision: {precision}, Recall: {recall}")
 
     def state_dict(self):
         return self.model.state_dict()
