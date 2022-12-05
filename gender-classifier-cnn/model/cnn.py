@@ -1,12 +1,12 @@
+"""CNNClassifier module."""
 from torch import nn
 
 
-#
-# Classification Model
-#
 class CNNClassifier(nn.Module):
+    """Classification Model."""
 
     def __init__(self):
+        """__init__ method."""
         super().__init__()
         conv_layers = []
         kernel_size_conv = (5, 5)
@@ -27,7 +27,13 @@ class CNNClassifier(nn.Module):
         conv_layers += [self.conv1, self.relu1, self.mp1, self.dp1, self.bn1]
 
         # 2 Convolution Block
-        self.conv2 = nn.Conv2d(16, 32, kernel_size=kernel_size_conv, stride=stride_conv, padding=padding_conv)
+        self.conv2 = nn.Conv2d(
+            16,
+            32,
+            kernel_size=kernel_size_conv,
+            stride=stride_conv,
+            padding=padding_conv,
+        )
         self.relu2 = nn.ReLU()
         self.mp2 = nn.MaxPool2d(kernel_size=kernel_size_pool, stride=stride_pool)
         self.bn2 = nn.BatchNorm2d(32)
@@ -36,7 +42,13 @@ class CNNClassifier(nn.Module):
         conv_layers += [self.conv2, self.relu2, self.mp2, self.bn2]
 
         # 3 Convolution Block
-        self.conv3 = nn.Conv2d(32, 64, kernel_size=kernel_size_conv, stride=stride_conv, padding=padding_conv)
+        self.conv3 = nn.Conv2d(
+            32,
+            64,
+            kernel_size=kernel_size_conv,
+            stride=stride_conv,
+            padding=padding_conv,
+        )
         self.relu3 = nn.ReLU()
         self.mp3 = nn.MaxPool2d(kernel_size=kernel_size_pool, stride=stride_pool)
         self.bn3 = nn.BatchNorm2d(64)
@@ -45,7 +57,13 @@ class CNNClassifier(nn.Module):
         conv_layers += [self.conv3, self.relu3, self.mp3, self.bn3]
 
         # 4 Convolution Block
-        self.conv4 = nn.Conv2d(64, 128, kernel_size=kernel_size_conv, stride=stride_conv, padding=padding_conv)
+        self.conv4 = nn.Conv2d(
+            64,
+            128,
+            kernel_size=kernel_size_conv,
+            stride=stride_conv,
+            padding=padding_conv,
+        )
         self.relu4 = nn.ReLU()
         self.mp4 = nn.AvgPool2d(kernel_size=kernel_size_pool, stride=stride_pool)
         self.bn4 = nn.BatchNorm2d(128)
@@ -54,7 +72,13 @@ class CNNClassifier(nn.Module):
         conv_layers += [self.conv4, self.relu4, self.mp4, self.bn4]
 
         # 5 Convolution Block
-        self.conv5 = nn.Conv2d(128, 128, kernel_size=kernel_size_conv, stride=stride_conv, padding=padding_conv)
+        self.conv5 = nn.Conv2d(
+            128,
+            128,
+            kernel_size=kernel_size_conv,
+            stride=stride_conv,
+            padding=padding_conv,
+        )
         self.relu5 = nn.ReLU()
         self.mp5 = nn.MaxPool2d(kernel_size=kernel_size_pool, stride=stride_pool)
         self.bn5 = nn.BatchNorm2d(128)
@@ -75,10 +99,8 @@ class CNNClassifier(nn.Module):
         # Softmax Layer
         self.sm = nn.Softmax(dim=1)
 
-    #
-    # Forward pass
-    #
     def forward(self, x):
+        """Forward pass."""
         # Convs Layers
         x = self.convs(x)
 

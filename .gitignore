@@ -12,6 +12,7 @@ gender-classifier-cnn/build
 gender-classifier-cnn/dist
 gender-classifier-cnn/env
 gender-classifier-cnn/gender_classifier_cnn_usoltsev37.egg-info
+gender_classifier_cnn_usoltsev37.egg-info
 
 gender-classifier-cnn/.idea/*
 .idea/*
