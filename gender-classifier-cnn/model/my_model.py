@@ -149,9 +149,9 @@ class Model:
                 right_predictions += (prediction == labels).sum().item()
                 all_predictions += prediction.shape[0]
 
-        precision = true_positive / (true_positive + false_positive)
-        recall = true_positive / (true_positive + false_negative)
-        accuracy = right_predictions / all_predictions
+        precision = true_positive / ((true_positive + false_positive) + 0.00001)
+        recall = true_positive / ((true_positive + false_negative) + 0.00001)
+        accuracy = right_predictions / (all_predictions + 0.00001)
 
         print(f"Accuracy: {accuracy:.2f}, Total items: {all_predictions}")
         print(f"Precision: {precision}, Recall: {recall}")

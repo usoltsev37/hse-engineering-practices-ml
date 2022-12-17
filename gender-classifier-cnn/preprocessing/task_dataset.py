@@ -29,7 +29,7 @@ class TaskDataset(Dataset):
 
     def __getitem__(self, idx):
         """__getitem__ method."""
-        audio_file_path = self.data_path + self.df.loc[idx, "PATH_TO_FILE"]
+        audio_file_path = self.data_path + '/' + self.df.loc[idx, "PATH_TO_FILE"]
         audio = torchaudio.load(audio_file_path)
         gender = self.df.loc[idx, "GENDER"]
 
