@@ -1,0 +1,5 @@
+outs:
+- md5: 17b29548c9b1448aa37de820040f9291.dir
+  size: 3044254458
+  nfiles: 32120
+  path: LibriTTS

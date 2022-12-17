@@ -1,5 +1,17 @@
 # hse-engineering-practices-ml
 
+### HW05
+
+For running pipline:
+```
+dvc exp run
+```
+
+For visualizing DAG:
+```
+dvc dag
+```
+
 ### HW02
 
 #### Установка пакетного менеджера Pip (уже установленно, он дефолтный)

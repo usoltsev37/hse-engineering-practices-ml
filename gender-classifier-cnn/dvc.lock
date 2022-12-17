@@ -1,0 +1,16 @@
+schema: '2.0'
+stages:
+  train:
+    cmd: python -m gender_classifier_cnn.pipeline
+    deps:
+    - path: gender_classifier_cnn/pipeline.py
+      md5: a01649311c5f46947436cb47ed41026a
+      size: 909
+    params:
+      params.yaml:
+        lr: 0.01
+        num_epochs: 1
+    outs:
+    - path: cnn_model
+      md5: 9198e93bbc8251ff999e87fbd06a38a5
+      size: 3001730

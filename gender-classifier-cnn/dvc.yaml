@@ -1,0 +1,10 @@
+stages:
+  train:
+    cmd: python -m gender_classifier_cnn.pipeline
+    deps:
+    - gender_classifier_cnn/pipeline.py
+    params:
+    - lr
+    - num_epochs
+    outs:
+    - cnn_model
