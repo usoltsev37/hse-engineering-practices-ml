@@ -13,6 +13,7 @@ class DataLoader:
         """__init__ method."""
         self.data_path = os.getcwd()
 
+        self.data_path = self.data_path[:len(self.data_path)-len("/gender-classifier-cnn")]
         df_train = pd.read_csv(
             self.data_path + "/LibriTTS/train-dev-clean.csv", sep=";"
         )

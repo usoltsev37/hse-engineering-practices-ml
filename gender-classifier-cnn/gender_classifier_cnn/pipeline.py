@@ -5,6 +5,7 @@ import torch
 from model.my_model import Model
 from preprocessing.my_dataloader import DataLoader
 
+import yaml
 
 class Pipeline:
     """Pipeline Model."""
@@ -25,4 +26,11 @@ class Pipeline:
 
 
 if __name__ == "__main__":
-    Pipeline.start(num_epochs=3, lr=0.001)
+    with open("../params.yaml", "r") as stream:
+        try:
+            params = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    print('Start')
+    Pipeline.start(num_epochs=params['num_epochs'], lr=params['lr'])
